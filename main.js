@@ -1,37 +1,76 @@
 //ამოცანა N1
-function compareValues(a, b){
-    if(a === b) console.log('ტოლია')
-    else console.log('არ არის ტოლი')
+user = [
+    {name: 'Temo', age: 25},
+    {name: 'Lasha', age: 21},
+    {name: 'Ana', age: 28},
+]
+
+function findYoungest(user){
+    let youngest = user[0]
+    for(singleUser of user){
+        if(singleUser.age < youngest.age){
+            youngest = singleUser
+        }
+    }
+
+    return youngest.name
 }
 
-
-compareValues(5, "5")
+console.log(findYoungest(user))
 
 
 //ამოცანა N2
-function convertToCelsius(fahrenheit){
-    if(typeof fahrenheit !== "number") return false
 
-    return (fahrenheit - 32) * (5/9)
+//2.1 პირველი ვარიანტი როდესაც ახალ მასივში ობიექტები გადადის რეფერენსის გარეშე
+let newArray1 = []
+
+function getNewArray(user){
+    for(item of user){
+        newArray1.push({
+            name: item.name,
+            age: item.age
+        })
+    }
 }
 
+getNewArray(user)
+console.log(newArray1)
 
-console.log(convertToCelsius(50))
+//2.2 მეორე ვარიანტი როდესაც ახალ მასივში ობიექტები გადადის რეფერენსით
+let newArray2 = user.map(item => item)
+console.log(newArray2)
 
 
 //ამოცანა N3
-function calculations(a, b, operation){
-    if(typeof a !== "number" || typeof b !== "number") return false
+function diceGame(){
+    let a = singlePlayerMove()
+    let b = singlePlayerMove()
 
-    if(operation === "+"){
-        return a + b
-    }else if(operation === "-"){
-        return a - b
-    }else if(operation === '*'){
-        return a * b
-    }else if(operation === "/"){
-        return a / b
-    }else return false
+    console.log('Attempt count for a is ' + a)
+    console.log('Attempt count for b is ' + b)
+
+    if(a > b){
+        return 'Winner is b'
+    }else if(b > a){
+        return 'Winner is a'
+    }else return 'Its a draw'
 }
 
-console.log(calculations("5",3,"*"))
+function singlePlayerMove(){
+    let numOfTries = 0
+    while(true){
+        let randomNum = getRandomNum()
+        numOfTries++
+        if(randomNum === 3){
+            return numOfTries
+        }
+    }
+}
+
+function getRandomNum(){
+    return Math.floor(Math.random() * 7);
+}
+
+let winner = diceGame()
+
+console.log(winner)
