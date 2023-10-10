@@ -1,37 +1,46 @@
 //ამოცანა N1
-function compareValues(a, b){
-    if(a === b) console.log('ტოლია')
-    else console.log('არ არის ტოლი')
+function calcArguments(arg1, arg2, ...args){
+    let result = []
+
+    if(arguments.length < 2) return
+
+    result.push(arg1+arg2)
+    let multipliedArgs = args.reduce((a, b) => a * b, 1)
+    result.push(multipliedArgs)
+
+    return result
+    
 }
 
-
-compareValues(5, "5")
-
+console.log(calcArguments(3,6,2,2,2))
 
 //ამოცანა N2
-function convertToCelsius(fahrenheit){
-    if(typeof fahrenheit !== "number") return false
-
-    return (fahrenheit - 32) * (5/9)
+let user = {
+    banks: [
+        {
+            address:{
+                city: 'tbilisi'
+            }
+        },
+        {
+            address:{
+                city: 'gori'
+            }
+        },
+        {
+            address:{
+                cityName: 'kutaisi'
+            }
+        },
+    ]
 }
 
 
-console.log(convertToCelsius(50))
 
-
-//ამოცანა N3
-function calculations(a, b, operation){
-    if(typeof a !== "number" || typeof b !== "number") return false
-
-    if(operation === "+"){
-        return a + b
-    }else if(operation === "-"){
-        return a - b
-    }else if(operation === '*'){
-        return a * b
-    }else if(operation === "/"){
-        return a / b
-    }else return false
+function getCityField(user){
+    const { banks: [, , { address: { city } = {}}] } = user;
+    return city
 }
 
-console.log(calculations("5",3,"*"))
+console.log(getCityField(user))
+
