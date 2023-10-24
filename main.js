@@ -1,76 +1,108 @@
-//ამოცანა N1
-user = [
-    {name: 'Temo', age: 25},
-    {name: 'Lasha', age: 21},
-    {name: 'Ana', age: 28},
-]
+//THEN/CATCH გამოყენებით
 
-function findYoungest(user){
-    let youngest = user[0]
-    for(singleUser of user){
-        if(singleUser.age < youngest.age){
-            youngest = singleUser
-        }
+function mySetTimeout(delay) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve('Is ready')
+        }, delay)
+    })
+}
+
+
+function makeToy() {
+    return mySetTimeout(3000).then(() => {
+      console.log("Toy is ready");
+    });
+  }
+
+  function checkQuality(){
+    return new Promise((resolve, reject) => {
+        if (Math.random() > 0.1) {
+            resolve("undefected");
+          } else {
+            reject("defected");
+          }
+    })
+  }
+  
+  function deliverToys(status) {
+    if(status === 'undefected'){
+        return mySetTimeout(2000).then(() => {
+            console.log("Toys have been delivered");
+          });
+    } else {
+        reject("toys wont be delivered")
     }
-
-    return youngest.name
-}
-
-console.log(findYoungest(user))
-
-
-//ამოცანა N2
-
-//2.1 პირველი ვარიანტი როდესაც ახალ მასივში ობიექტები გადადის რეფერენსის გარეშე
-let newArray1 = []
-
-function getNewArray(user){
-    for(item of user){
-        newArray1.push({
-            name: item.name,
-            age: item.age
-        })
-    }
-}
-
-getNewArray(user)
-console.log(newArray1)
-
-//2.2 მეორე ვარიანტი როდესაც ახალ მასივში ობიექტები გადადის რეფერენსით
-let newArray2 = user.map(item => item)
-console.log(newArray2)
+  }
+  
+  function sellToy() {
+    return mySetTimeout(1000).then(() => {
+      console.log("Toy has been sold");
+    });
+  }
+  
+  makeToy()
+    .then(() => checkQuality())
+    .then((status) => deliverToys(status))
+    .then(() => sellToy())
+    .then(() => {
+      console.log("All steps completed successfully!");
+    })
+    .catch((error) => {
+      console.error("An error occurred:", error);
+    });
+  
 
 
-//ამოცანა N3
-function diceGame(){
-    let a = singlePlayerMove()
-    let b = singlePlayerMove()
 
-    console.log('Attempt count for a is ' + a)
-    console.log('Attempt count for b is ' + b)
+//ASYNC/AWAIT გამოყენებით
 
-    if(a > b){
-        return 'Winner is b'
-    }else if(b > a){
-        return 'Winner is a'
-    }else return 'Its a draw'
-}
+// async function mySetTimeout(delay){
+//   setTimeout(() => {
+//     return 'Is ready'
+//   }, delay)
+// }
 
-function singlePlayerMove(){
-    let numOfTries = 0
-    while(true){
-        let randomNum = getRandomNum()
-        numOfTries++
-        if(randomNum === 3){
-            return numOfTries
-        }
-    }
-}
+// async function makeToy(){
+//   await mySetTimeout(3000);
+//   console.log("Toy is ready");
+// }
 
-function getRandomNum(){
-    return Math.floor(Math.random() * 7);
-}
 
-let winner = diceGame()
+// async function checkQuality(){
+//   if (Math.random() > 0.1) {
+//     return 'undefected'
+//   } else {
+//     return 'defected'
+//   }
+// }
 
-console.log(winner)
+
+// async function deliverToys(status){
+//   if(status === 'undefected'){
+//     await mySetTimeout(2000);
+//     console.log("Toys have been delivered");
+//   }else{
+//      return "toys wont be delivered"
+//   }
+// }
+
+// async function sellToy(){
+//   mySetTimeout(1000)
+//   console.log("Toy has been sold");
+// }
+
+
+// async function allSteps(){
+//   try {
+//     await makeToy();
+//     const status = await checkQuality();
+//     await deliverToys(status);
+//     await sellToy();
+//     console.log("All steps completed successfully!");
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
+
+// allSteps()
