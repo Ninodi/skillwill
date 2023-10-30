@@ -1,49 +1,98 @@
 //ამოცანა N1
+function expo(baseNum, power, cb){
+    if(power === 0) return 1
+    let result = baseNum * expo(baseNum, power - 1, cb)
+    cb(baseNum, power, result)
+    return result
+}
 
-const modalBtn = document.getElementById('modal-btn')
-const modalContainer = document.querySelector('.modal-container')
-const modalBack = document.querySelector('.modal-back')
 
-modalBtn.addEventListener('click', () => {
-    modalContainer.style.display = 'block'
-})
+let finalRes = expo(5,3, everyStepResult)
 
-modalBack.addEventListener('click', () => {
-    modalContainer.style.display = 'none'
-})
+function everyStepResult(base, power, result) {
+    console.log(`${base}^${power} = ${result}`);
+}
+
+
+console.log(finalRes)
 
 
 //ამოცანა N2
 
-const colors = ['red', 'blue', 'green', 'black', 'white']
+fetch("https://jsonplaceholder.typicode.com/posts")
+    .then((res) => {
+        console.log('resolved', res)
+        return res.json()
+    })
+    .then(data => {
+        console.log(data)
+        let jsonDiv = document.createElement('div')
+        jsonDiv.innerHTML = JSON.stringify(data)
+        document.body.appendChild(jsonDiv)
+    })
+    .catch((err) => console.log('err', err))
 
-const colorInput = document.getElementById('color-input')
-const colorBtn = document.getElementById('color-btn')
 
 
-colorBtn.addEventListener('click', () => {
-    let inputValue = colorInput.value
+//ამოცანა N3   
 
-    if(inputValue === '') alert('Please choose a color')
+let incorrectDataType = 5
+let validObj = {
+    name: 'Nino',
+    address: {
+        city: 'Tbilisi',
+        country: 'Georgia'
+    },
+    interests: {
+        gaming: ['Halo', 'Cuphead', "Stardew Valley"],
+        foreignLanguages: ['English', 'Russian', 'French', "German"]
+    }
+}
+
+ async function checkObject(obj){
+    if(typeof obj === "object"){
+        if(Array.isArray(obj)){
+            return 'This is not an object'
+        }else return obj
+    }else{
+        return 'Incorrect data type'
+    }
+ }
+
+ async function promisify(){
+    try{
+        const response = await checkObject(validObj)
+        let result = deepClone(response)
+        console.log(result)
+    }catch(error){
+        console.log(error)
+    }
+ }
+
+
+ function deepClone(obj) {
+    if (obj === null || typeof obj !== 'object') {
+      return obj; // Return non-objects as is
+    }
   
-    if(!colors.includes(inputValue)){
-        alert('Color not found')
-    }else document.body.style.backgroundColor = inputValue
+    if (Array.isArray(obj)) {
+      // If it's an array, create a new array and deep clone its elements
+      const cloneArray = [];
+      for (let i = 0; i < obj.length; i++) {
+        cloneArray[i] = deepClone(obj[i]);
+      }
+      return cloneArray;
+    }
+  
+    // If it's an object, create a new object and deep clone its properties
+    const cloneObj = {};
+    for (let key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        cloneObj[key] = deepClone(obj[key]);
+      }
+    }
+  
+    return cloneObj;
+  }
 
-})
-
-
-//ამოცანა N3
-const numInput = document.getElementById('num-input')
-const numMeanBtn = document.getElementById('num-mean-btn')
-const result = document.getElementById('result')
-
-numMeanBtn.addEventListener('click', () => {
-    let inputValue = numInput.value
-    numInput.value = ''
-    let nums = inputValue.split(':')
-    let sum = nums.reduce((a,b) => parseInt(a) + parseInt(b))
-    let mean = sum / nums.length
-
-    result.innerText = `Mean is ${mean}`
-})
+promisify()
