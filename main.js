@@ -1,4 +1,4 @@
 import validator from 'validator';
 
-validator.isEmail('test@test.com') //true
-validator.isEmail('abcDE123') //false
+console.log(validator.isEmail('test@test.com'))//true
+console.log(validator.isEmail('abcDE123') )//false
