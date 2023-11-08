@@ -1,19 +1,7 @@
 import React from 'react';
 
 
-function BookCard({title, author, image, summary, characters}) {
-    const logBookInfo = () => {
-        let info = {
-            title: title,
-            author: author,
-            image: image,
-            summary: summary,
-            character: characters
-        }
-    
-        console.log(info)
-    }
-
+function BookCard({title, author, image, summary, characters, logBookInfo}) {
     return (
         <div className='book-container'>
            <h1 className="book-title">
@@ -33,7 +21,7 @@ function BookCard({title, author, image, summary, characters}) {
                 </span>
                 ))}
            </div>
-           <button onClick={logBookInfo}>Log Book Info</button>
+           <button onClick={() => logBookInfo(title, author, image, summary, characters)}>Log Book Info</button>
         </div>
     );
 }

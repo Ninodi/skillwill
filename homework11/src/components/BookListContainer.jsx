@@ -8,10 +8,22 @@ const bookInfo = [
     {title: 'Jane Eyre', author: "Charlotte Brontë", image: "https://m.media-amazon.com/images/I/61F2kZtma8L._AC_UF1000,1000_QL80_.jpg", summary: "Jane Eyre, a governess, manages to find her true love in Edward Rochester, the owner of an old mansion. However, Edward has a dark secret which will destroy Jane's life forever.", characters: ["Jane Eyre", "Edward Rochester", "Bertha Mason"], bookId: 1},
 ]
 
+const logBookInfo = (title, author, image, summary, characters) => {
+        let info = {
+            title: title,
+            author: author,
+            image: image,
+            summary: summary,
+            character: characters
+        }
+    
+        console.log(info)
+}
+
 function BookListContainer(props) {
     return (
         <div className='booklist-container'>
-            {bookInfo.map(book => <BookCard key={book.bookId} title={book.title} author={book.author} image={book.image} summary={book.summary} characters={book.characters}/>)}
+            {bookInfo.map(book => <BookCard key={book.bookId} title={book.title} author={book.author} image={book.image} summary={book.summary} characters={book.characters} logBookInfo={logBookInfo}/>)}
         </div>
     );
 }
