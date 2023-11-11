@@ -1,0 +1,33 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+}
+
+.input-container{
+  margin-bottom: 20px;
+}
+.todos-container{
+  display: flex;
+  gap: 30px;
+}
+.todo-item{
+  border: 1px solid black;
+  max-width: 400px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.incomplete, .complete{
+  border: 1px solid red;
+  padding: 20px;
+  min-height: 50vh;
+}
+.incomplete h1, .complete h1{
+  margin-bottom: 20px;
+}
