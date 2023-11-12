@@ -15,6 +15,7 @@ class App extends Component {
     };
   }
 
+
   addTodo = (text) => {
     const newTodo = {
       id: Math.random(),
@@ -39,7 +40,8 @@ class App extends Component {
   render() {
     const incompleteTodos = this.state.todos.filter((todo) => !todo.completed);
     const completeTodos = this.state.todos.filter((todo) => todo.completed);
-
+    
+    console.log('Component is rendering');
     return (
       <div>
         <TodoInput addTodo={this.addTodo} />
