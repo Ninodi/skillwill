@@ -10,7 +10,7 @@ const App = () => {
     const newTodo = {
       id: Math.random(),
       text,
-      completed: false,
+      completed: "incomplete",
     };
 
     setTodos((prevTodos) => [...prevTodos, newTodo]);
@@ -19,13 +19,22 @@ const App = () => {
   const toggleComplete = useCallback((todoId) => {
     setTodos((prevTodos) =>
       prevTodos.map((todo) =>
-        todo.id === todoId ? { ...todo, completed: !todo.completed } : todo
+        todo.id === todoId ? { ...todo, completed: todo.completed === 'complete' ? 'incomplete' : 'complete' } : todo
       )
     );
   }, []);
 
-  const incompleteTodos = todos.filter((todo) => !todo.completed);
-  const completeTodos = todos.filter((todo) => todo.completed);
+  const setProgress = useCallback((todoId) => {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
+        todo.id === todoId ? { ...todo, completed: 'progress' } : todo
+      )
+    );
+  }, [])
+
+  const incompleteTodos = todos.filter((todo) => todo.completed === 'incomplete');
+  const completeTodos = todos.filter((todo) => todo.completed === 'complete');
+  const inProgressTodos = todos.filter((todo) => todo.completed === 'progress');
 
   console.log("Component is rendering");
 
@@ -34,22 +43,44 @@ const App = () => {
       <TodoInput addTodo={addTodo} />
       <div className="todos-container">
         <div className="incomplete">
-          <h1>Incomplete Todos</h1>
+          <div className="title inc-title">
+            <h1>Incomplete Todos</h1>
+            <div className="count">{incompleteTodos.length}</div>
+          </div>
           {incompleteTodos.map((todo) => (
             <TodoItem
               key={todo.id}
               todo={todo}
               toggleComplete={toggleComplete}
+              setProgress={setProgress}
+            />
+          ))}
+        </div>
+        <div className="progress">
+        <div className="title prog-title">
+            <h1>In Progress</h1>
+            <div className="count">{inProgressTodos.length}</div>
+          </div>
+          {inProgressTodos.map((todo) => (
+            <TodoItem
+              key={todo.id}
+              todo={todo}
+              toggleComplete={toggleComplete}
+              setProgress={setProgress}
             />
           ))}
         </div>
         <div className="complete">
-          <h1>Complete Todos</h1>
+        <div className="title comp-title">
+            <h1>Complete Todos</h1>
+            <div className="count">{completeTodos.length}</div>
+          </div>
           {completeTodos.map((todo) => (
             <TodoItem
               key={todo.id}
               todo={todo}
               toggleComplete={toggleComplete}
+              setProgress={setProgress}
             />
           ))}
         </div>
