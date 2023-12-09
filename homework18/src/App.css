@@ -5,7 +5,21 @@
 .todo-container{
   display: flex;
   border: 1px solid black;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   gap: 20px;
   margin-bottom: 10px;
+  padding: 10px;
+  position: relative;
+}
+
+.todo-container button{
+  width: 100px;
+}
+
+.edit-todo{
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }
