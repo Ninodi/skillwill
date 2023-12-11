@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const TodoInput = ({ addTodo }) => {
+const TodoInput = ({ setTodo }) => {
   const [todoInput, setTodoInput] = useState('');
   const [userInput, setUserInput] = useState('')
   const [deadlineInput, setDeadlineInput] = useState('')
@@ -19,7 +19,7 @@ const TodoInput = ({ addTodo }) => {
 
   const handleAddTodo = () => {
     if (todoInput !== '' && userInput !== '' && deadlineInput !== '' ) {
-      addTodo(todoInput, userInput, deadlineInput);
+      setTodo(userInput, todoInput, deadlineInput);
       setTodoInput('');
       setUserInput('')
       setDeadlineInput('')

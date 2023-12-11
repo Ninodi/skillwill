@@ -1,7 +1,7 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-function Todo({todoText, todoStatus, todoUser, todoDate, markAsDone, deleteTodo}) {
-
+function Todo({todoText, todoId, todoStatus, todoUser, todoDate, markAsDone, deleteTodo}) {
 
   return (
     <div className='todo-container'>
@@ -12,7 +12,7 @@ function Todo({todoText, todoStatus, todoUser, todoDate, markAsDone, deleteTodo}
         <div>
           <button onClick={markAsDone}>Mark as {todoStatus ? 'incomplete' : 'done'}</button>
         </div>
-        <button className='edit-todo' >Edit Todo</button>
+        <Link to={`/update/${todoId}`} className='edit-todo'>Edit Todo</Link>
         <button className="delete-todo" onClick={deleteTodo}>Delete Todo</button>
     </div>
   )
