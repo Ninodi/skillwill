@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
+import { useLanguage, LanguageOptions } from '../contexts/LanguageContext';
 
 const TodoInput = ({ setTodo }) => {
+  const { language } = useLanguage();
+  const translations = LanguageOptions[language];
+
   const [todoInput, setTodoInput] = useState('');
   const [userInput, setUserInput] = useState('')
   const [deadlineInput, setDeadlineInput] = useState('')
@@ -33,13 +37,13 @@ const TodoInput = ({ setTodo }) => {
       <input
         type="text"
         value={userInput}
-        placeholder='User'
+        placeholder={translations.name}
         onChange={handleUserInputChange}
       />
       <input
         type="text"
         value={todoInput}
-        placeholder='Add task'
+        placeholder={translations.todoInput}
         onChange={handleTodoInputChange}
       />
       <input
@@ -47,7 +51,7 @@ const TodoInput = ({ setTodo }) => {
         value={deadlineInput}
         onChange={handleDeadlineInputChange}
       />
-      <button onClick={handleAddTodo}>Add Todo</button>
+      <button onClick={handleAddTodo}>{translations.addBtn}</button>
     </div>
   );
 };

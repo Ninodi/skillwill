@@ -4,17 +4,24 @@ import "./App.css";
 import MainPage from "./pages/MainPage";
 import Layouts from "./Layouts";
 import UpdatePage from './pages/UpdatePage';
+import Header from './components/Header';
+import { LanguageProvider } from './contexts/LanguageContext';
 
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Layouts />} />
-        <Route index element={<MainPage />}/>
-        <Route path='update/:todoId' element={<UpdatePage />} />
-      </Routes>
-    </BrowserRouter>
+    <div>
+      <LanguageProvider>
+        <Header/>
+        <BrowserRouter>
+          <Routes>
+            <Route path='/' element={<Layouts />} />
+            <Route index element={<MainPage />}/>
+            <Route path='update/:todoId' element={<UpdatePage />} />
+          </Routes>
+        </BrowserRouter>
+      </LanguageProvider>
+    </div>
   )
 }
 

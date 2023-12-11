@@ -45,7 +45,7 @@ function MainPage() {
         date,
         isCompleted: false,
       };
-      
+
       sendRequest([newTodo])
       .then(res => {
         if(!res.ok) throw new Error("Response Failed")
